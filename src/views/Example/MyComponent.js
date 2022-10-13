@@ -1,46 +1,51 @@
 import React from "react";
 
 class MyComponent extends React.Component {
-    /**
-     * 
-     */
 
     state = {
-        name: 'Thai Dinh',
-        level: 'IT consulting and implementation - Advanced'
+        firstName: "",
+        lastName: ""
     }
 
-    /**
-     * 
-     * @param {*} event 
-     */
-    handleOnChangeName = (event) => {
-        console.log(event);
+    handleChangeFirstName = (event) => {
         this.setState({
-            name: event.target.value
+            firstName: event.target.value
         })
     }
 
-    handleOnClickButton = () => {
-        alert('Click me');
+    handleChangeLastName = (event) => {
+        this.setState({
+            lastName: event.target.value
+        })
     }
 
+    handleSubmit = (event) => {
+        event.preventDefault();
+        alert('FirstName: ' + this.state.firstName + ' --- LastName: ' + this.state.lastName);
+    }
     render() {
         return (
             <>
-                <div className="first">
-                    <input value={this.state.name} type="text"
-                        onChange={(event) => this.handleOnChangeName(event)}
+                <form>
+                    <label htmlFor="fname">First name:</label><br />
+                    <input
+                        type="text"
+                        value={this.state.firstName}
+                        onChange={(event) => this.handleChangeFirstName(event)}
+                    /><br />
+                    <label htmlFor="lname">Last name:</label><br />
+                    <input
+                        type="text"
+                        value={this.state.lastName}
+                        onChange={(event) => this.handleChangeLastName(event)}
                     />
-                    <br />
-                    Welcome to Hitachi vantara I am {this.state.name}.
-                </div>
-                <div className="second">
-                    My position is {this.state.level}.
-                </div>
-                <div className="third">
-                    <button onClick={() => this.handleOnClickButton()}>Click me</button>
-                </div>
+                    <br /><br />
+                    <input
+                        type="submit"
+                        value="Submit"
+                        onClick={(event) => this.handleSubmit(event)}
+                    />
+                </form>
             </>
         )
     }
