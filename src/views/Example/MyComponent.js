@@ -1,51 +1,36 @@
 import React from "react";
+import ChildComponent from "./ChildComponent";
+import AddComponent from "./AddComponent";
 
 class MyComponent extends React.Component {
 
     state = {
-        firstName: "",
-        lastName: ""
+        jobs: [
+            { id: 'jobID1', title: 'Tech Lead', salary: '1000' },
+            { id: 'jobID2', title: 'Developer', salary: '800' },
+            { id: 'jobID3', title: 'Tester', salary: '500' }
+        ]
     }
 
-    handleChangeFirstName = (event) => {
+    addNewJob = (job) => {
+        console.log('>>> Check job input from parent', job);
         this.setState({
-            firstName: event.target.value
+            jobs: [...this.state.jobs, job]
         })
     }
 
-    handleChangeLastName = (event) => {
-        this.setState({
-            lastName: event.target.value
-        })
-    }
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        alert('FirstName: ' + this.state.firstName + ' --- LastName: ' + this.state.lastName);
-    }
     render() {
+        console.log('Call render() >>> ', this.state);
         return (
             <>
-                <form>
-                    <label htmlFor="fname">First name:</label><br />
-                    <input
-                        type="text"
-                        value={this.state.firstName}
-                        onChange={(event) => this.handleChangeFirstName(event)}
-                    /><br />
-                    <label htmlFor="lname">Last name:</label><br />
-                    <input
-                        type="text"
-                        value={this.state.lastName}
-                        onChange={(event) => this.handleChangeLastName(event)}
-                    />
-                    <br /><br />
-                    <input
-                        type="submit"
-                        value="Submit"
-                        onClick={(event) => this.handleSubmit(event)}
-                    />
-                </form>
+                <AddComponent
+                    addNewJob={this.addNewJob}
+                />
+                <ChildComponent
+                    jobs={this.state.jobs}
+                />
+
             </>
         )
     }
