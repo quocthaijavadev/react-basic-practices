@@ -6,16 +6,28 @@ class MyComponent extends React.Component {
 
     state = {
         jobs: [
-            { id: 'jobID1', title: 'Tech Lead', salary: '1000' },
-            { id: 'jobID2', title: 'Developer', salary: '800' },
-            { id: 'jobID3', title: 'Tester', salary: '500' }
+            { id: 'jobID1', title: 'Project Manager', salary: '3000' },
+            { id: 'jobID2', title: 'Technical Lead', salary: '2000' },
+            { id: 'jobID3', title: 'Java Developer', salary: '1000' },
+            { id: 'jobID4', title: 'Tester', salary: '500' }
         ]
     }
 
     addNewJob = (job) => {
         console.log('>>> Check job input from parent', job);
+        let currentJobs = this.state.jobs;
+        currentJobs.push(job);
         this.setState({
-            jobs: [...this.state.jobs, job]
+            // jobs: [...this.state.jobs, job]
+            jobs: currentJobs
+        })
+    }
+
+    deleteAJob = (job) => {
+        let currentJobs = this.state.jobs;
+        currentJobs = currentJobs.filter(item => item.id !== job.id);
+        this.setState({
+            jobs: currentJobs
         })
     }
 
@@ -29,6 +41,7 @@ class MyComponent extends React.Component {
                 />
                 <ChildComponent
                     jobs={this.state.jobs}
+                    deleteAJob={this.deleteAJob}
                 />
 
             </>
